@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produk & Transaksi</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Tahoma', sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        .table-container {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: white;
+            padding: 20px;
+        }
+
+        .form-container {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table thead th {
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Menu tab -->
+        <ul class="nav nav-pills mb-3">
+            <li class="nav-item">
+                <button class="nav-link active" id="tabProduk" onclick="showPage('produk')">Produk</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" id="tabTransaksi" onclick="showPage('transaksi')">Transaksi</button>
+            </li>
+        </ul>
+
+        <!-- ================= HALAMAN PRODUK ================= -->
+        <div id="pageProduk">
+            <div class="table-container">
+                <h1>Daftar Produk - P7_056</h1>
+                <button id="addDataBtn" class="btn btn-primary mb-3">+ Add Data</button>
+                <table id="product-table" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nama Produk</th>
+                            <th>Jenis Produk</th>
+                            <th>Stok</th>
+                            <th>Harga Beli</th>
+                            <th>Harga Jual</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8" class="text-center">Data produk akan muncul di sini...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-container" id="formContainer">
+                <h3 id="formTitle">Tambah Produk Baru</h3>
+                <form id="addProductForm">
+                    <div class="mb-3">
+                        <label for="namaProduk" class="form-label">Nama Produk</label>
+                        <input type="text" class="form-control" id="namaProduk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenisProduk" class="form-label">Jenis Produk</label>
+                        <input type="text" class="form-control" id="jenisProduk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stokProduk" class="form-label">Stok</label>
+                        <input type="number" class="form-control" id="stokProduk" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hargaBeli" class="form-label">Harga Beli</label>
+                        <input type="number" class="form-control" id="hargaBeli" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hargaJual" class="form-label">Harga Jual</label>
+                        <input type="number" class="form-control" id="hargaJual" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="statusProduk" class="form-label">Status</label>
+                        <select class="form-control" id="statusProduk" required>
+                            <option value="Aktif">Aktif</option>
+                            <option value="Non-Aktif">Non-Aktif</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN TRANSAKSI ================= -->
+        <div id="pageTransaksi" style="display: none;">
+            <div class="table-container">
+                <h1>Daftar Transaksi - P7_056</h1>
+                <button id="addTransaksiBtn" class="btn btn-primary mb-3">+ Add Data</button>
+                <table id="transaksi-table" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID Transaksi</th>
+                            <th>Tanggal</th>
+                            <th>ID Produk</th>
+                            <th>Nama Produk</th>
+                            <th>Jumlah</th>
+                            <th>Total Harga</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8" class="text-center">Data transaksi akan muncul di sini...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-container" id="formTransaksiContainer">
+                <h3>Tambah Transaksi Baru</h3>
+                <form id="addTransaksiForm">
+                    <div class="mb-3">
+                        <label for="idProduk" class="form-label">Produk</label>
+                        <select class="form-control" id="idProduk" required>
+                            <option value="">-- Pilih Produk --</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="jumlah" class="form-label">Jumlah</label>
+                        <input type="number" class="form-control" id="jumlah" min="1" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <button type="button" id="cancelTransaksiBtn" class="btn btn-secondary">Cancel</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ================= URL API =================
+        const url = 'http://api.melangkah.my.id/produk/read.php';
+        const createUrl = 'http://api.melangkah.my.id/produk/create.php';
+        const updateUrl = 'http://api.melangkah.my.id/produk/update.php';
+        const deleteUrl = 'http://api.melangkah.my.id/produk/delete.php';
+        const detailUrl = 'http://api.melangkah.my.id/produk/detail.php';
+
+        const transaksiReadUrl = 'http://api.melangkah.my.id/transaksi/read.php';
+        const transaksiCreateUrl = 'http://api.melangkah.my.id/transaksi/create.php';
+        const transaksiUpdateUrl = 'http://api.melangkah.my.id/transaksi/update.php';
+
+        // Menyimpan pasangan id produk -> nama produk
+        let produkMap = {};
+
+        // ================= PINDAH HALAMAN =================
+        function showPage(page) {
+            const isProduk = page === 'produk';
+            document.getElementById('pageProduk').style.display = isProduk ? 'block' : 'none';
+            document.getElementById('pageTransaksi').style.display = isProduk ? 'none' : 'block';
+            document.getElementById('tabProduk').classList.toggle('active', isProduk);
+            document.getElementById('tabTransaksi').classList.toggle('active', !isProduk);
+
+            if (isProduk) getProducts(); else getTransaksi();
+        }
+
+        // ================= PRODUK: READ =================
+        async function getProducts() {
+            try {
+                let response = await fetch(url);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                let products = await response.json();
+
+                let tableBody = document.querySelector('#product-table tbody');
+                tableBody.innerHTML = '';
+
+                products.forEach(product => {
+                    let row = `
+                        <tr>
+                            <td>${product.id}</td>
+                            <td>${product.nama_produk}</td>
+                            <td>${product.jenis_produk}</td>
+                            <td>${product.stok}</td>
+                            <td>Rp${product.harga_beli}</td>
+                            <td>Rp${product.harga_jual}</td>
+                            <td>${product.status}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editProduct(${product.id})">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Delete</button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Gagal mengambil data produk:", error);
+                document.querySelector('#product-table tbody').innerHTML = '<tr><td colspan="8" class="text-center">Tidak dapat mengambil data produk.</td></tr>';
+            }
+        }
+
+        // Tampilkan form tambah produk
+        document.getElementById('addDataBtn').addEventListener('click', function () {
+            document.getElementById('formTitle').textContent = 'Tambah Produk Baru';
+            document.getElementById('submitBtn').textContent = 'Submit';
+            document.getElementById('addProductForm').reset();
+            delete document.getElementById('addProductForm').dataset.id;
+            document.getElementById('formContainer').style.display = 'block';
+        });
+
+        // Sembunyikan form produk
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            document.getElementById('formContainer').style.display = 'none';
+        });
+
+        // ================= PRODUK: CREATE & UPDATE =================
+        document.getElementById('addProductForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const id = this.dataset.id;
+            const productData = {
+                "nama_produk": document.getElementById('namaProduk').value,
+                "jenis_produk": document.getElementById('jenisProduk').value,
+                "stok": document.getElementById('stokProduk').value,
+                "harga_beli": document.getElementById('hargaBeli').value,
+                "harga_jual": document.getElementById('hargaJual').value,
+                "status": document.getElementById('statusProduk').value
+            };
+
+            try {
+                if (id) {
+                    productData.id = id;
+                    let response = await fetch(updateUrl, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(productData)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    alert('Produk berhasil diperbarui!');
+                } else {
+                    let response = await fetch(createUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(productData)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    alert('Produk berhasil ditambahkan!');
+                }
+
+                getProducts();
+                document.getElementById('formContainer').style.display = 'none';
+            } catch (error) {
+                console.error("Gagal mengirim data produk:", error);
+                alert("Gagal mengirim data produk.");
+            }
+        });
+
+        // ================= PRODUK: EDIT =================
+        async function editProduct(id) {
+            try {
+                let response = await fetch(`${detailUrl}?id=${id}`);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                let product = await response.json();
+                if (!product || !product.nama_produk) {
+                    throw new Error("Data produk tidak ditemukan atau struktur data salah");
+                }
+
+                document.getElementById('namaProduk').value = product.nama_produk;
+                document.getElementById('jenisProduk').value = product.jenis_produk;
+                document.getElementById('stokProduk').value = product.stok;
+                document.getElementById('hargaBeli').value = product.harga_beli;
+                document.getElementById('hargaJual').value = product.harga_jual;
+                document.getElementById('statusProduk').value = product.status;
+
+                document.getElementById('formTitle').textContent = 'Update Data Produk';
+                document.getElementById('submitBtn').textContent = 'Update';
+                document.getElementById('addProductForm').dataset.id = product.id;
+                document.getElementById('formContainer').style.display = 'block';
+            } catch (error) {
+                console.error('Gagal mengambil data produk:', error);
+                alert('Terjadi kesalahan saat mengambil data produk, silakan coba lagi.');
+            }
+        }
+
+        // ================= PRODUK: DELETE =================
+        async function deleteProduct(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+                try {
+                    let response = await fetch(`${deleteUrl}?id=${id}`, { method: 'DELETE' });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    alert('Produk berhasil dihapus!');
+                    getProducts();
+                } catch (error) {
+                    console.error('Gagal menghapus produk:', error);
+                    alert('Gagal menghapus produk.');
+                }
+            }
+        }
+
+        // ================= TRANSAKSI: AMBIL NAMA PRODUK =================
+        // Mengisi produkMap (untuk tabel) dan dropdown produk (untuk form)
+        async function loadProdukMap() {
+            let response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            let products = await response.json();
+
+            produkMap = {};
+            let options = '<option value="">-- Pilih Produk --</option>';
+
+            products.forEach(p => {
+                produkMap[p.id] = p.nama_produk;
+                options += `<option value="${p.id}">${p.nama_produk} (ID ${p.id})</option>`;
+            });
+
+            document.getElementById('idProduk').innerHTML = options;
+        }
+
+        // ================= TRANSAKSI: READ =================
+        async function getTransaksi() {
+            try {
+                await loadProdukMap(); // ambil daftar produk dulu
+
+                let response = await fetch(transaksiReadUrl);
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                let data = await response.json();
+
+                let tableBody = document.querySelector('#transaksi-table tbody');
+                tableBody.innerHTML = '';
+
+                data.forEach(t => {
+                    let namaProduk = produkMap[t.id_produk] || '(produk tidak ditemukan)';
+
+                    let aksi = t.status_transaksi === 'Selesai'
+                        ? '<span class="text-muted">-</span>'
+                        : `<button class="btn btn-warning btn-sm" onclick="updateTransaksi(${t.id_transaksi})">Selesaikan</button>`;
+
+                    let row = `
+                        <tr>
+                            <td>${t.id_transaksi}</td>
+                            <td>${t.tanggal_transaksi}</td>
+                            <td>${t.id_produk}</td>
+                            <td>${namaProduk}</td>
+                            <td>${t.jumlah}</td>
+                            <td>Rp${t.total_harga}</td>
+                            <td>${t.status_transaksi}</td>
+                            <td>${aksi}</td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error('Gagal mengambil data transaksi:', error);
+                document.querySelector('#transaksi-table tbody').innerHTML =
+                    '<tr><td colspan="8" class="text-center">Tidak dapat mengambil data transaksi.</td></tr>';
+            }
+        }
+
+        // Tampilkan / sembunyikan form transaksi
+        document.getElementById('addTransaksiBtn').addEventListener('click', function () {
+            document.getElementById('addTransaksiForm').reset();
+            document.getElementById('formTransaksiContainer').style.display = 'block';
+        });
+        document.getElementById('cancelTransaksiBtn').addEventListener('click', function () {
+            document.getElementById('formTransaksiContainer').style.display = 'none';
+        });
+
+        // ================= TRANSAKSI: CREATE =================
+        document.getElementById('addTransaksiForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const transaksiData = {
+                "id_produk": parseInt(document.getElementById('idProduk').value),
+                "jumlah": parseInt(document.getElementById('jumlah').value)
+            };
+
+            try {
+                let response = await fetch(transaksiCreateUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(transaksiData)
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                alert('Transaksi berhasil ditambahkan!');
+                document.getElementById('formTransaksiContainer').style.display = 'none';
+                getTransaksi();
+            } catch (error) {
+                console.error('Gagal menambahkan transaksi:', error);
+                alert('Gagal menambahkan transaksi.');
+            }
+        });
+
+        // ================= TRANSAKSI: UPDATE =================
+        async function updateTransaksi(id) {
+            if (!confirm('Ubah status transaksi ini menjadi Selesai?')) return;
+
+            try {
+                let response = await fetch(transaksiUpdateUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ "id_transaksi": id })
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                alert('Status transaksi berhasil diperbarui!');
+                getTransaksi();
+            } catch (error) {
+                console.error('Gagal memperbarui transaksi:', error);
+                alert('Gagal memperbarui transaksi.');
+            }
+        }
+
+        // Muat data produk saat halaman pertama dibuka
+        getProducts();
+    </script>
+</body>
+
+</html>
